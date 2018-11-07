@@ -1,7 +1,7 @@
-*Install: *
+**Install: 
 
 ```yarn install```
 
-*Run:*
+**Run:
 
 ```yarn run start```
