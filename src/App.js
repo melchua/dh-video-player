@@ -79,10 +79,12 @@ class App extends Component {
     }
     const { loop, mirror, playing, playbackRate, top } = this.state;
 
+    //ref={this.ref}
+
     return (
       <div>
-        <div style={containerStyle} >
-          <div style={playerBoxStyle}>
+        <div style={containerStyle}>
+          <div style={playerBoxStyle} ref={this.ref}>
             <ReactPlayer 
               url="https://s3-us-west-2.amazonaws.com/dancehive-videos/full.mp4" 
               width='1920px'  
@@ -90,14 +92,13 @@ class App extends Component {
               playing={playing}
               onPlay={this.onPlay}
               loop={loop}
-              ref={this.ref}
               playbackRate={playbackRate}
             />
           </div>
           <div className="controls" style={controlsStyle}>
             <Button style={buttonStyle} onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</Button>
             <Button style={buttonStyle} onClick={this.stop}>Stop</Button>
-            <Button style={buttonStyle} onClick={this.onClickFullscreen}>Fullscreen</Button>
+            <Button style={buttonStyle} onClick={this.onClickFullscreen} id='fs-toggle'>Fullscreen</Button>
             <Button style={buttonStyle} onClick={this.setPlaybackRate} value={0.5}>0.5</Button>
             <Button style={buttonStyle} onClick={this.setPlaybackRate} value={0.75}>0.75</Button>
             <Button style={buttonStyle} onClick={this.setPlaybackRate} value={1}>1</Button>
