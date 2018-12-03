@@ -5,11 +5,16 @@ import sizeMe from 'react-sizeme';
 
 
 export class Demo extends Component {
-    componentDidMount() {
-        // var width = document.getElementById('foo').offsetWidth; 
-        // console.log(width);
+    componentWillReceiveProps(nextProps) {
+        if (this.props.isFullscreen !== nextProps.isFullscreen) {
+            // Fullscreen status has changed.
+        }
     }
     render() {
+        const { isFullscreen, toggleFullscreen } = this.props;
+        const buttonLabel = isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen';
+        const toggleButton = <button onClick={toggleFullscreen}>{buttonLabel}</button>;
+
         const { width, height } = this.props.size;
         const changingHeight = height / 2 * -1;
         const aspectRatioBox = {
@@ -18,12 +23,13 @@ export class Demo extends Component {
             height: '0',
             paddingTop: 'calc(443 / 792 * 100%)',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            top: changingHeight
         }
 
         const boxCutter = {
             position: 'absolute',
-            top: changingHeight,
+            top: -changingHeight,
             left: '0',
             width: '100%',
             height: '100%',
@@ -32,7 +38,7 @@ export class Demo extends Component {
 
         const textOverlay = {
             position: 'absolute',
-            bottom: '0',
+            top: '0',
             left: '50vw',
             color: 'white'
         }
@@ -47,8 +53,10 @@ export class Demo extends Component {
                     />
                     <div style={textOverlay}>
                         { width } x { height }
+                        {toggleButton}
                     </div>
                 </div>
+
             </div>
         );
     }
