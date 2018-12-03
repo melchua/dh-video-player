@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import Dplayer from './DPlayer';
 import AspectVideo from './playground/aspectRatio';
+import MyComponent from './playground/SizeAwareComponent';
 
 class App extends Component {
 
