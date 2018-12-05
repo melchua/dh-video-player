@@ -56,18 +56,18 @@ export class Demo extends Component {
         const { width, height } = this.props.size;
         const changingHeight = height / 2 * -1;
         const aspectRatioBox = {
-            backgroundColor: 'red',
-            width: '100%',
+            backgroundColor: 'blue',
+            width: width,
             height: '0',
-            paddingTop: 'calc(1920 / 2160 * 100%)',
+            paddingTop: 'calc(1575 / 1400 * 100%)',
             position: 'relative',
             overflow: 'hidden',
-            top: changingHeight
+            top: changingHeight,
+            display: 'flex'
         }
 
         const boxCutter = {
             position: 'absolute',
-            top: -changingHeight,
             left: '0',
             width: '100%',
             height: '100%',
@@ -82,23 +82,22 @@ export class Demo extends Component {
             left: '50vw',
             color: 'white'
         }
-        const controlla = {
-            color: 'white'
-        }
         const controlsStyle = {
-            position: 'absolute',
-            backgroundColor: 'rgba(0,0,0,0.5)',
-            opacity: 0.9,
-            bottom: 0,
-            left: '200px',
             display: 'flex',
+            position: 'absolute',
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            bottom: 0,
+            // add max height
             width: '100%',
-            zIndex: 3
+            zIndex: 3,
+            justifyContent: 'center',
+            // alignItems: 'flex-end'
         }
         
         const buttonStyle = {
             color: 'white',
             zIndex: 10,
+            // height: '10px'
         }
         const { loop, mirror, playing, playbackRate, top } = this.state;
           
@@ -118,20 +117,19 @@ export class Demo extends Component {
                         { width } x { height }
                     </div>
                 </div>
-                <div style={controlla}>
-                    <div className="controls" style={controlsStyle}>
-                        <Button style={buttonStyle} onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</Button>
-                        <Button style={buttonStyle} onClick={this.onClickFullscreen} id='fs-toggle'>Fullscreen</Button>
-                        <Button style={buttonStyle} onClick={this.setPlaybackRate} value={0.5}>0.5</Button>
-                        <Button style={buttonStyle} onClick={this.setPlaybackRate} value={0.75}>0.75</Button>
-                        <Button style={buttonStyle} onClick={this.setPlaybackRate} value={1}>1</Button>
-                        <Button style={buttonStyle} onClick={this.setPlaybackRate} value={1.5}>1.5</Button>
-                        <Button style={buttonStyle} onClick={this.setPlaybackRate} value={2}>2</Button>
-                        <FormControlLabel style={buttonStyle} control={<Switch onChange={this.toggleLoop} checked={loop}/>} label="Loop" />
-                        <FormControlLabel style={buttonStyle} control={<Switch onChange={this.switchAngle} checked={top} />} 
-                            label={top ? "Front" : "Back"} />
-                        <FormControlLabel style={buttonStyle} control={<Switch onChange={this.onMirror} checked={mirror}/>} label="Mirror" />
-                    </div>
+                <div style={controlsStyle}>
+                    <Button style={buttonStyle} onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</Button>
+                    <Button style={buttonStyle} onClick={this.onClickFullscreen} id='fs-toggle'>Fullscreen</Button>
+                    <Button style={buttonStyle} onClick={this.setPlaybackRate} value={0.5}>0.5</Button>
+                    <Button style={buttonStyle} onClick={this.setPlaybackRate} value={0.75}>0.75</Button>
+                    <Button style={buttonStyle} onClick={this.setPlaybackRate} value={1}>1</Button>
+                    <Button style={buttonStyle} onClick={this.setPlaybackRate} value={1.5}>1.5</Button>
+                    <Button style={buttonStyle} onClick={this.setPlaybackRate} value={2}>2</Button>
+                    <FormControlLabel style={buttonStyle} control={<Switch onChange={this.toggleLoop} checked={loop}/>} 
+                        label={<span style={{color: 'white'}}>Loop</span>} />
+                    <FormControlLabel style={buttonStyle} control={<Switch onChange={this.switchAngle} checked={top} />} 
+                        label={top ? <span style={{color: 'white'}}>Front</span> : <span style={{color: 'white'}}>Back</span>} />
+                    <FormControlLabel style={buttonStyle} control={<Switch onChange={this.onMirror} checked={mirror}/>} label={<span style={{color: 'white'}}>Mirror</span>} />
                 </div>
             </div>
         );
@@ -147,4 +145,5 @@ export default sizeMe({ monitorHeight: true })(AspectVideo);
 /*
     1. How to get fullscreen + controls working (so close)    
     2. How to set the color of a label? (what kind of CSS setup should I have?)
+    3. Make controls responsive
 */
