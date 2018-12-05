@@ -85,7 +85,7 @@ export class Demo extends Component {
         const controlsStyle = {
             display: 'flex',
             position: 'absolute',
-            backgroundColor: 'rgba(0,0,0,1)',
+            backgroundColor: 'rgba(0,0,0,0.3)',
             bottom: 0,
             // add max height
             width: '100%',
