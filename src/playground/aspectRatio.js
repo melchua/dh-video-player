@@ -56,10 +56,10 @@ export class Demo extends Component {
         const { width, height } = this.props.size;
         const changingHeight = height / 2 * -1;
         const aspectRatioBox = {
-            backgroundColor: 'red',
-            width: '100%',
+            backgroundColor: 'blue',
+            width: width,
             height: '0',
-            paddingTop: 'calc(1920 / 2160 * 100%)',
+            paddingTop: 'calc(1575 / 1400 * 100%)',
             position: 'relative',
             overflow: 'hidden',
             top: changingHeight,
@@ -68,7 +68,6 @@ export class Demo extends Component {
 
         const boxCutter = {
             position: 'absolute',
-            top: -changingHeight,
             left: '0',
             width: '100%',
             height: '100%',
