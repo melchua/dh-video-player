@@ -54,15 +54,15 @@ export class Demo extends Component {
         const toggleButton = <button onClick={toggleFullscreen}>{buttonLabel}</button>;
 
         const { width, height } = this.props.size;
-        const changingHeight = height / 2 * -1;
+        const changingHeight = height / 2;
         const aspectRatioBox = {
             backgroundColor: 'blue',
-            width: width,
+            width: '100%',
             height: '0',
             paddingTop: 'calc(1575 / 1400 * 100%)',
             position: 'relative',
             overflow: 'hidden',
-            top: changingHeight,
+            top: -changingHeight,
             display: 'flex'
         }
 
@@ -72,7 +72,7 @@ export class Demo extends Component {
             width: '100%',
             height: '100%',
             backgroundColor: 'black',
-            top: this.state.top ? -changingHeight : 0,
+            top: this.state.top ? 0 : changingHeight,
             transform: this.state.mirror ? 'rotateY(180deg)' : 'rotateY(0deg)',
         }
 
@@ -139,11 +139,3 @@ export class Demo extends Component {
 const AspectVideo = Fullscreenable()(Demo);
 
 export default sizeMe({ monitorHeight: true })(AspectVideo);
-
-
-// question for Don:
-/*
-    1. How to get fullscreen + controls working (so close)    
-    2. How to set the color of a label? (what kind of CSS setup should I have?)
-    3. Make controls responsive
-*/
