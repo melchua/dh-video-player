@@ -5,6 +5,8 @@ import sizeMe from 'react-sizeme';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import screenfull from 'screenfull';
+import { findDOMNode } from 'react-dom';
 
 export class Demo extends Component {
     constructor(props){
@@ -18,7 +20,8 @@ export class Demo extends Component {
         }
     }
     onClickFullscreen = () => {
-        this.props.toggleFullscreen();
+        // this.props.toggleFullscreen();
+        screenfull.request(findDOMNode(this.refs.player));
     }
     onPlay = () => {
     console.log('onPlay')
@@ -74,6 +77,7 @@ export class Demo extends Component {
             backgroundColor: 'black',
             top: this.state.top ? changingHeight : 0,
             transform: this.state.mirror ? 'rotateY(180deg)' : 'rotateY(0deg)',
+            overflow: 'hidden',
         }
 
         const textOverlay = {
@@ -140,10 +144,3 @@ const AspectVideo = Fullscreenable()(Demo);
 
 export default sizeMe({ monitorHeight: true })(AspectVideo);
 
-
-// question for Don:
-/*
-    1. How to get fullscreen + controls working (so close)    
-    2. How to set the color of a label? (what kind of CSS setup should I have?)
-    3. Make controls responsive
-*/
