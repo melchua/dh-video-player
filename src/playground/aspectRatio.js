@@ -7,6 +7,23 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import screenfull from 'screenfull';
 import { findDOMNode } from 'react-dom';
+import styled from 'styled-components';
+
+
+const AspectRatioBox = styled.div`
+    background-color: 'blue';
+    width: ${props => props.width};
+    height: calc(${props => props.height} / 2);
+    position: relative;
+    overflow: hidden;
+    top: -600px;
+    &:before{
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: calc(1575 / 1400 * 100%);
+    }
+`
 
 export class Demo extends Component {
     constructor(props){
@@ -19,6 +36,7 @@ export class Demo extends Component {
           playbackRate: 1.0
         }
     }
+
     onClickFullscreen = () => {
         // this.props.toggleFullscreen();
         screenfull.request(findDOMNode(this.refs.player));
@@ -105,9 +123,9 @@ export class Demo extends Component {
         }
         const { loop, mirror, playing, playbackRate, top } = this.state;
           
-        return (               
-            <div style={aspectRatioBox} className="playerBox">
-                <div style={boxCutter}>
+        return (             
+            <AspectRatioBox>  
+                <div style={boxCutter} ref="player">
                     <ReactPlayer 
                         url="https://res.cloudinary.com/dance-hive/video/upload/v1543824997/DH_test_2.mp4"
                         width="100%"
@@ -135,7 +153,7 @@ export class Demo extends Component {
                         label={top ? <span style={{color: 'white'}}>Front</span> : <span style={{color: 'white'}}>Back</span>} />
                     <FormControlLabel style={buttonStyle} control={<Switch onChange={this.onMirror} checked={mirror}/>} label={<span style={{color: 'white'}}>Mirror</span>} />
                 </div>
-            </div>
+            </AspectRatioBox>
         );
     }
 }
