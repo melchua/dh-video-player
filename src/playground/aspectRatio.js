@@ -117,9 +117,9 @@ export class Demo extends Component {
                         loop={loop}
                         playbackRate={playbackRate}
                     />
-                    <div style={textOverlay}>
+                    {/* <div style={textOverlay}>
                         { width } x { height }
-                    </div>
+                    </div> */}
                 </div>
                 <div style={controlsStyle}>
                     <Button style={buttonStyle} onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</Button>
