@@ -1,6 +1,8 @@
 **Summary**
 
-WIP (not ready for use yet): Custom video player that allows for mirroring, multi-angle, and speed controls. The player currently has all the above features, and I am currently working on making this work responsively, as well as fullscreen.
+![Player Demo](dh-video-player/public/assets/dhplayer-demo.gif?raw=true "Demo")
+
+Responsive custom video player that allows for mirroring, multi-angle, and speed controls. Currently working on properly implementing full-screen for both web and mobile. This will eventually be used for training videos. Still very much a work in progress.
 
 **Install**
 
