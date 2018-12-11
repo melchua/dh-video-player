@@ -11,6 +11,7 @@ import { findDOMNode } from 'react-dom';
 export class Demo extends Component {
     constructor(props){
         super(props)
+        this.playerRef = React.createRef();
         this.state = {
           playing: true,
           top: true,
@@ -21,7 +22,9 @@ export class Demo extends Component {
     }
     onClickFullscreen = () => {
         // this.props.toggleFullscreen();
-        screenfull.request(findDOMNode(this.refs.player));
+        // console.log(this.playerRef);
+        screenfull.request(findDOMNode(this.playerRef.current));
+        // screenfull.request();
     }
     onPlay = () => {
     console.log('onPlay')
@@ -66,7 +69,7 @@ export class Demo extends Component {
             position: 'relative',
             overflow: 'hidden',
             top: -changingHeight,
-            display: 'flex'
+            // display: 'flex'
         }
 
         const boxCutter = {
@@ -106,7 +109,7 @@ export class Demo extends Component {
         const { loop, mirror, playing, playbackRate, top } = this.state;
           
         return (               
-            <div style={aspectRatioBox} className="playerBox">
+            <div style={aspectRatioBox} className="playerBox" ref={this.playerRef}>
                 <div style={boxCutter}>
                     <ReactPlayer 
                         url="https://res.cloudinary.com/dance-hive/video/upload/v1543824997/DH_test_2.mp4"
@@ -117,9 +120,9 @@ export class Demo extends Component {
                         loop={loop}
                         playbackRate={playbackRate}
                     />
-                    {/* <div style={textOverlay}>
+                    <div style={textOverlay}>
                         { width } x { height }
-                    </div> */}
+                    </div>
                 </div>
                 <div style={controlsStyle}>
                     <Button style={buttonStyle} onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</Button>
