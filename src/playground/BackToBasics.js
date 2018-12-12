@@ -26,8 +26,13 @@ const Player = (props) => {
 const PlayerSizeAware = withSizeWrapper(Player);
 
 class BasicVideo extends Component {
-    constructor(props) {
-        // need write a function you can pass to child to send the data back to get width and height 
+    state = {
+        vidWidth: '',
+        vidHeight: ''
+    }
+
+    handleHeightChange = () => {
+        
     }
     render() {
         const bigassWrapper = {
