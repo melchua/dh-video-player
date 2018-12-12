@@ -10,7 +10,7 @@ import { findDOMNode } from 'react-dom';
 
 export class Demo extends Component {
     constructor(props){
-        super(props)
+        super(props);
         this.playerRef = React.createRef();
         this.state = {
           playing: true,
@@ -23,8 +23,8 @@ export class Demo extends Component {
     onClickFullscreen = () => {
         // this.props.toggleFullscreen();
         // console.log(this.playerRef);
-        screenfull.request(findDOMNode(this.playerRef.current));
-        // screenfull.request();
+        // screenfull.request(findDOMNode(this.playerRef.current));
+        screenfull.request();
     }
     onPlay = () => {
     console.log('onPlay')
@@ -112,7 +112,7 @@ export class Demo extends Component {
             <div style={aspectRatioBox} className="playerBox" ref={this.playerRef}>
                 <div style={boxCutter}>
                     <ReactPlayer 
-                        url="https://res.cloudinary.com/dance-hive/video/upload/v1543824997/DH_test_2.mp4"
+                        url="https://res.cloudinary.com/dance-hive/video/upload/v1544581858/videos/DHDemo.mp4"
                         width="100%"
                         height="100%"
                         playing={playing}
