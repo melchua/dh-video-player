@@ -82,7 +82,7 @@ export class Demo extends Component {
             transform: this.state.mirror ? 'rotateY(180deg)' : 'rotateY(0deg)',
             overflow: 'hidden',
         }
-
+        
         const textOverlay = {
             position: 'absolute',
             top: '0',

@@ -6,11 +6,12 @@ import { withSize } from 'react-sizeme';
 const withSizeWrapper = withSize({monitorHeight: true});
 
 const Player = (props) => {
-    const wrapper = {
-        position: 'relative',
-    };
+
     const { height, width } = props.size;
-    console.log(props.size);
+
+    const wrapper = {
+        // position: 'relative'
+    };
     return (
         <div style={wrapper}>
             <ReactPlayer 
@@ -25,15 +26,30 @@ const Player = (props) => {
 const PlayerSizeAware = withSizeWrapper(Player);
 
 class BasicVideo extends Component {
+    constructor(props) {
+        // need write a function you can pass to child to send the data back to get width and height 
+    }
     render() {
         const bigassWrapper = {
-            position: 'relative'        
+            position: 'relative',
+            height: '100%',
+            width: '100%',
+            // overflow: 'hidden'       
+        }
+        const mover = {
+            position: 'absolute',
+            top: '-100px',
+            width: '100%',
+            height: '100%', // height needs to be a number that comes from state and child component
+            backgroundColor: 'black',
         }
         return (
-            <div style={bigassWrapper}>                
-                <PlayerSizeAware />
-                <div style={{position:'absolute', top: '300px'}}>
-                    <button onClick={this.props.toggleFullscreen}>Fullscreen</button>
+            <div style={bigassWrapper}>    
+                <div style={mover} className="mover">            
+                    <PlayerSizeAware />
+                    {/* <div style={{position:'absolute', top: '300px'}}>
+                        <button onClick={this.props.toggleFullscreen}>Fullscreen</button>
+                    </div> */}
                 </div>
             </div>
         )
