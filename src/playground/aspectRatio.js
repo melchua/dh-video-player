@@ -109,7 +109,7 @@ export class Demo extends Component {
             <div style={aspectRatioBox} className="playerBox">
                 <div style={boxCutter}>
                     <ReactPlayer 
-                        url="https://res.cloudinary.com/dance-hive/video/upload/v1543824997/DH_test_2.mp4"
+                        url="https://res.cloudinary.com/dance-hive/video/upload/v1544581858/videos/DHDemo.mp4"
                         width="100%"
                         height="100%"
                         playing={playing}

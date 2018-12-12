@@ -5,7 +5,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{maxHeight: '100vh', overflow:'hidden'}}>
         <AspectVideo />
         Filler text
       </div>
