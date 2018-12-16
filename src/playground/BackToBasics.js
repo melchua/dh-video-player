@@ -5,6 +5,12 @@ import { withSize } from 'react-sizeme';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
+import PlayArrow from '@material-ui/icons/PlayArrow';
+import Pause from '@material-ui/icons/Pause';
+import Loop from '@material-ui/icons/Loop';
+import Fullscreen from '@material-ui/icons/Fullscreen'; 
+import FullscreenExit from '@material-ui/icons/FullscreenExit'; 
+
 
 
 
@@ -91,6 +97,7 @@ class BasicVideo extends Component {
             // height: '10px'
         }
         const {isFront, onMirror, playing, loop} = this.state;
+        const {isFullscreen, toggleFullscreen} = this.props;
         return (
             <div style={bigassWrapper}>
                 <div style={mover} className="mover">
@@ -98,12 +105,14 @@ class BasicVideo extends Component {
                 </div>
                 <div style={{position:'absolute', bottom: '0px'}}>
                     <button onClick={this.props.toggleFullscreen}>Fullscreen</button>
-                    <Button style={buttonStyle} onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</Button>
+                    <Button style={buttonStyle} onClick={this.playPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
+                    <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'red'}} /> : <Loop style={{color: 'white'}} />}</Button>
+                    <Button style={buttonStyle} onClick={toggleFullscreen}>{isFullscreen ? <FullscreenExit style={{color: 'white'}} /> : <Fullscreen style={{color: 'white'}} />}</Button>
+
                     <FormControlLabel style={buttonStyle} control={<Switch onChange={this.switchAngle} checked={isFront} />} 
                         label={isFront ? <span style={{color: 'white'}}>Front</span> : <span style={{color: 'white'}}>Back</span>} />
                     <FormControlLabel style={buttonStyle} control={<Switch onChange={this.onMirror} checked={onMirror}/>} label={<span style={{color: 'white'}}>Mirror</span>} />
-                    <FormControlLabel style={buttonStyle} control={<Switch onChange={this.toggleLoop} checked={loop}/>} 
-                        label={<span style={{color: 'white'}}>Loop</span>} />
+
                 </div>
             </div>
         )
