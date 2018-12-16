@@ -9,9 +9,10 @@ class App extends Component {
       <div>
         {/* <div style={{overflow:'hidden', maxHeight:'100vh'}}> */}
         {/* <div style={{width:'50vh', height:'50vh'}}> */}
-        <div style={{position:'relative',top:'40px',background:'green',border: '5px solid yellow'}}>
+        <div style={{position:'relative',background:'green'}}>
           <FullBasicVideo />
         </div>
+        <p>Hello World asfddsafasfasfs</p>
 
       </div>
     );
