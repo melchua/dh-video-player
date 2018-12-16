@@ -12,20 +12,7 @@ class App extends Component {
         <div style={{position:'relative',top:'40px',background:'green',border: '5px solid yellow'}}>
           <FullBasicVideo />
         </div>
-        {/* Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great.
-        Lorem ipsum is ht ebestsum.  Super awesome great. */}
+
       </div>
     );
   }
