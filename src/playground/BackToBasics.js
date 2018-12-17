@@ -121,11 +121,15 @@ class BasicVideo extends Component {
             // zIndex: 10,
             // height: '10px'
         }
-        const controlBarStyle = {
+        const controlBarContainerStyle = {
             backgroundColor: 'rgba(0,0,0,0.4)',
             position: 'absolute',
             bottom: '0px',
-            width: '100%'
+            width: '100%',
+        }
+        const controlBarStyle = { 
+            display: 'flex',
+            justifyContent: 'space-between'
         }
         const rangeStyle = {
             width: '100%',
@@ -140,7 +144,7 @@ class BasicVideo extends Component {
                 <div style={mover} className="mover">
                     <PlayerSizeAware onRef={ref => (this.child = ref)} triggerGetPlayerSize={this.getPlayerSize} muted={muted} playing={playing} loop={loop} onProgress={this.onProgress}/>
                 </div>
-                <div style={controlBarStyle}>
+                <div style={controlBarContainerStyle}>
                     <div style={rangeStyle}>
                         <Slider
                             value={played}
@@ -151,15 +155,19 @@ class BasicVideo extends Component {
                         />
 
                     </div>
-                    <div>
-                        <Button style={buttonStyle} onClick={this.playPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
-                        <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'purple' }}/> : <Loop />}</Button>
-                        <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff /> : <VolumeUp />}</Button>
-                    
-                        <FormControlLabel style={buttonStyle} control={<Switch onChange={this.switchAngle} checked={isFront} />} 
-                            label={isFront ? <span style={{color: 'white'}}>Front</span> : <span style={{color: 'white'}}>Back</span>} />
-                        <FormControlLabel style={buttonStyle} control={<Switch onChange={this.onMirror} checked={onMirror}/>} label={<span style={{color: 'white'}}>Mirror</span>} />
-                        <Button style={buttonStyle} onClick={toggleFullscreen}>{isFullscreen ? <FullscreenExit style={{color: 'white'}} /> : <Fullscreen style={{color: 'white'}} />}</Button>
+                    <div style={controlBarStyle}>
+                        <span>
+                            <Button style={buttonStyle} onClick={this.playPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
+                            <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'purple' }}/> : <Loop />}</Button>
+                            <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff /> : <VolumeUp />}</Button>
+                        </span>
+
+                        <span>
+                            <FormControlLabel style={buttonStyle} control={<Switch onChange={this.switchAngle} checked={isFront} />} 
+                                label={isFront ? <span style={{color: 'white'}}>Front</span> : <span style={{color: 'white'}}>Back</span>} />
+                            <FormControlLabel style={buttonStyle} control={<Switch onChange={this.onMirror} checked={onMirror}/>} label={<span style={{color: 'white'}}>Mirror</span>} />
+                            <Button style={buttonStyle} onClick={toggleFullscreen}>{isFullscreen ? <FullscreenExit style={{color: 'white'}} /> : <Fullscreen style={{color: 'white'}} />}</Button>
+                        </span>
                     </div>
                 </div>
             </div>
