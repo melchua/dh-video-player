@@ -89,16 +89,6 @@ class BasicVideo extends Component {
         console.log('on change value: ', value);
         this.child.playerRef.current.seekTo(parseFloat(value));
     }
-    onSeekMouseDown = e => {
-        this.setState({ seeking: true })
-    }
-    onSeekChange = e => {
-        this.setState({ played: parseFloat(e.target.value) })
-    }
-    onSeekMouseUp = e => {
-        this.setState({ seeking: false })
-        this.child.playerRef.current.seekTo(parseFloat(e.target.value))
-    }
     onProgress = state => {
         console.log('onProgress', state)
         // We only want to update time slider if we are not currently seeking
@@ -152,32 +142,19 @@ class BasicVideo extends Component {
                 </div>
                 <div style={controlBarStyle}>
                     <div style={rangeStyle}>
-                        {/* <Slider
+                        <Slider
                             value={played}
                             aria-labelledby="label"
                             onChange={this.handleSliderValueChange}
-                            // onMouseDown={this.onSeekMouseDown}
-                            // onChange={this.onSeekChange}
-                            // onMouseUp={this.onSeekMouseUp}
-                        /> */}
-
-                        <input 
-                            style={{width: '100%'}}
-                            type="range" 
-                            min={0} 
-                            max={1} 
-                            step="any"
-                            value={played}
-                            onMouseDown={this.onSeekMouseDown}
-                            onChange={this.onSeekChange}
-                            onMouseUp={this.onSeekMouseUp}
+                            min={0}
+                            max={1}
                         />
 
                     </div>
                     <div>
                         <Button style={buttonStyle} onClick={this.playPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
-                        <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'red'}} /> : <Loop style={{color: 'white'}} />}</Button>
-                        <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff style={{color: 'white'}} /> : <VolumeUp style={{color: 'white'}} />}</Button>
+                        <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'purple' }}/> : <Loop />}</Button>
+                        <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff /> : <VolumeUp />}</Button>
                     
                         <FormControlLabel style={buttonStyle} control={<Switch onChange={this.switchAngle} checked={isFront} />} 
                             label={isFront ? <span style={{color: 'white'}}>Front</span> : <span style={{color: 'white'}}>Back</span>} />
