@@ -31,7 +31,7 @@ class Player extends Component {
         }
     }
     render() {
-        const { playing, loop, onProgress } = this.props;
+        const { playing, loop, onProgress, muted } = this.props;
         return (
             <div>
                 <ReactPlayer
@@ -42,6 +42,7 @@ class Player extends Component {
                     playing={playing}
                     loop={loop}
                     onProgress={onProgress}
+                    muted={muted}
                 />
             </div>
         )    
@@ -136,16 +137,21 @@ class BasicVideo extends Component {
             bottom: '0px',
             width: '100%'
         }
+        const rangeStyle = {
+            width: '100%',
+            borderRadius: '1.3px',
+            border: '0.2px solid #010101'
+        }
         const {isFront, onMirror, playing, loop, muted, played} = this.state;
         const {isFullscreen, toggleFullscreen} = this.props;
 
         return (
             <div style={bigassWrapper}>
                 <div style={mover} className="mover">
-                    <PlayerSizeAware onRef={ref => (this.child = ref)} triggerGetPlayerSize={this.getPlayerSize} playing={playing} loop={loop} onProgress={this.onProgress}/>
+                    <PlayerSizeAware onRef={ref => (this.child = ref)} triggerGetPlayerSize={this.getPlayerSize} muted={muted} playing={playing} loop={loop} onProgress={this.onProgress}/>
                 </div>
                 <div style={controlBarStyle}>
-                    <div style={{width: '100%'}}>
+                    <div style={rangeStyle}>
                         {/* <Slider
                             value={played}
                             aria-labelledby="label"
