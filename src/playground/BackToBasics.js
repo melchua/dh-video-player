@@ -43,6 +43,7 @@ class Player extends Component {
                     loop={loop}
                     onProgress={onProgress}
                     muted={muted}
+                    playsinline
                 />
             </div>
         )    
