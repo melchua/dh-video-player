@@ -36,7 +36,7 @@ class Player extends Component {
             <div>
                 <ReactPlayer
                     ref={this.playerRef}
-                    url="https://res.cloudinary.com/dance-hive/video/upload/v1544581858/videos/DHDemo.mp4"
+                    url="https://s3-us-west-2.amazonaws.com/course-videos-transcoded/wt/wt.m3u8"
                     width="100%"
                     height="100%"
                     playing={playing}
@@ -44,6 +44,9 @@ class Player extends Component {
                     onProgress={onProgress}
                     muted={muted}
                     playsinline
+                    config={{ file: { attributes: {
+                        crossOrigin: 'anonymous'
+                      }}}}
                 />
             </div>
         )    
@@ -111,7 +114,7 @@ class BasicVideo extends Component {
         }
         const mover = {
             position: 'absolute',
-            top: this.state.isFront ?  0 : -this.state.vidHeight,
+            top: this.state.isFront ?  -this.state.vidHeight : 0,
             transform: this.state.mirror ? 'rotateY(180deg)' : 'rotateY(0deg)',
             width: '100%',
             height: '100%', // height needs to be a number that comes from state and child component

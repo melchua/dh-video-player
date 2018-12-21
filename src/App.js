@@ -11,10 +11,10 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <div>
           {/* <div style={{width:'50vh', height:'50vh'}}> */}
-          <div style={{position:'relative',background:'green'}}>
+          <div style={{position:'relative',background:'white',padding:'0'}}>
             <FullBasicVideo />
           </div>
-          <p>Hello World asfddsafasfasfs</p>
+          <p>The beginning</p>
 
         </div>
       </MuiThemeProvider>
