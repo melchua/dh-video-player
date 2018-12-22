@@ -13,6 +13,7 @@ import FullscreenExit from '@material-ui/icons/FullscreenExit';
 import VolumeUp from '@material-ui/icons/VolumeUp'; 
 import VolumeOff from '@material-ui/icons/VolumeOff'; 
 import Slider from '@material-ui/lab/Slider';
+import Duration from '../Components/Duration'; 
 
 const withSizeWrapper = withSize({ monitorHeight: true });
 
@@ -31,7 +32,7 @@ class Player extends Component {
         }
     }
     render() {
-        const { playing, loop, onProgress, muted } = this.props;
+        const { playing, loop, onProgress, muted, onDuration } = this.props;
         return (
             <div>
                 <ReactPlayer
@@ -43,6 +44,7 @@ class Player extends Component {
                     loop={loop}
                     onProgress={onProgress}
                     muted={muted}
+                    onDuration={onDuration}
                     playsinline
                     config={{ file: { attributes: {
                         crossOrigin: 'anonymous'
@@ -64,14 +66,19 @@ class BasicVideo extends Component {
         playing: true,
         loop: true,
         played: 0,
-        seeking: false
+        seeking: false,
+        duration: 0
     }
     
     getPlayerSize = (sizeFromPlayer) => {
         this.setState({ vidHeight: sizeFromPlayer.height / 2});
         this.setState({ vidWidth: sizeFromPlayer.width});
     }
-    
+
+    onDuration = (duration) => {
+        console.log('onDuration ', duration);
+        this.setState({duration: duration});
+    }
     // handlers for controls
     switchAngle = () => {
         this.setState(({isFront}) => ({ isFront: !isFront }))
@@ -94,7 +101,7 @@ class BasicVideo extends Component {
         this.child.playerRef.current.seekTo(parseFloat(value));
     }
     onProgress = state => {
-        console.log('onProgress', state)
+        // console.log('onProgress', state)
         // We only want to update time slider if we are not currently seeking
         if (!this.state.seeking) {
             this.setState(state)
@@ -103,7 +110,8 @@ class BasicVideo extends Component {
     componentDidUpdate() {
         // console.log(this.state.vidWidth);
         // console.log(this.state.vidHeight);
-        console.log(this.state.played);
+        // console.log(this.state.played);
+        // console.log('state duration', this.state.duration);
     }
     render() {
         const bigassWrapper = {
@@ -140,13 +148,19 @@ class BasicVideo extends Component {
             borderRadius: '1.3px',
             border: '0.2px solid #010101'
         }
-        const {isFront, onMirror, playing, loop, muted, played} = this.state;
+        const {isFront, onMirror, playing, loop, muted, played, duration} = this.state;
         const {isFullscreen, toggleFullscreen} = this.props;
-
         return (
             <div style={bigassWrapper}>
                 <div style={mover} className="mover">
-                    <PlayerSizeAware onRef={ref => (this.child = ref)} triggerGetPlayerSize={this.getPlayerSize} muted={muted} playing={playing} loop={loop} onProgress={this.onProgress}/>
+                    <PlayerSizeAware 
+                        onRef={ref => (this.child = ref)} 
+                        triggerGetPlayerSize={this.getPlayerSize} 
+                        muted={muted} playing={playing} 
+                        loop={loop} 
+                        onProgress={this.onProgress}
+                        onDuration={this.onDuration}
+                        />
                 </div>
                 <div style={controlBarContainerStyle}>
                     <div style={rangeStyle}>
@@ -164,6 +178,7 @@ class BasicVideo extends Component {
                             <Button style={buttonStyle} onClick={this.playPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'purple' }}/> : <Loop />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff /> : <VolumeUp />}</Button>
+                            <span style={buttonStyle}><Duration seconds={duration * played} /> / <Duration seconds={duration}/></span>
                         </span>
 
                         <span>
