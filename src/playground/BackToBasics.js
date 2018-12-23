@@ -62,7 +62,7 @@ class BasicVideo extends Component {
         vidWidth: 0,
         vidHeight: 0,
         isFront: true,
-        isMirror: true,
+        mirror: true,
         playing: true,
         loop: true,
         played: 0,
@@ -81,7 +81,9 @@ class BasicVideo extends Component {
     }
     // handlers for controls
     switchAngle = () => {
-        this.setState(({isFront}) => ({ isFront: !isFront }))
+        this.setState(({isFront}) => ({ isFront: !isFront }));
+        this.setState(({mirror}) => ({mirror: !mirror}));
+
     }
     onMirror = () => {
         this.setState(({mirror}) => ({mirror: !mirror}));
@@ -148,7 +150,7 @@ class BasicVideo extends Component {
             borderRadius: '1.3px',
             border: '0.2px solid #010101'
         }
-        const {isFront, onMirror, playing, loop, muted, played, duration} = this.state;
+        const {isFront, mirror, playing, loop, muted, played, duration} = this.state;
         const {isFullscreen, toggleFullscreen} = this.props;
         return (
             <div style={bigassWrapper}>
@@ -178,13 +180,14 @@ class BasicVideo extends Component {
                             <Button style={buttonStyle} onClick={this.playPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'purple' }}/> : <Loop />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff /> : <VolumeUp />}</Button>
+                            <Button style={buttonStyle} onClick="">1x</Button> 
                             <span style={buttonStyle}><Duration seconds={duration * played} /> / <Duration seconds={duration}/></span>
                         </span>
 
                         <span>
                             <FormControlLabel style={buttonStyle} control={<Switch onChange={this.switchAngle} checked={isFront} />} 
                                 label={isFront ? <span style={{color: 'white'}}>Front</span> : <span style={{color: 'white'}}>Back</span>} />
-                            <FormControlLabel style={buttonStyle} control={<Switch onChange={this.onMirror} checked={onMirror}/>} label={<span style={{color: 'white'}}>Mirror</span>} />
+                            <FormControlLabel style={buttonStyle} control={<Switch onChange={this.onMirror} checked={mirror}/>} label={<span style={{color: 'white'}}>Mirror</span>} />
                             <Button style={buttonStyle} onClick={toggleFullscreen}>{isFullscreen ? <FullscreenExit style={{color: 'white'}} /> : <Fullscreen style={{color: 'white'}} />}</Button>
                         </span>
                     </div>
