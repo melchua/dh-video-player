@@ -51,7 +51,7 @@ class SpeedControl extends Component {
                         height="100%"
                     />
                 </DropdownContainer>
-                <Button onClick="" style={{color: 'white', padding: '0'}}>{playbackRate.toFixed(2)}X</Button>
+                <Button style={{color: 'white', padding: '0'}}>{playbackRate.toFixed(2)}X</Button>
             </Dropdown>
         );
     }

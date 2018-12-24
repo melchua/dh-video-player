@@ -8,9 +8,8 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div>
-          {/* <div style={{width:'50vh', height:'50vh'}}> */}
-          <div style={{position:'relative',background:'white',padding:'0'}}>
+        <div style={{display: 'relative'}}>
+          <div>
             <FullBasicVideo />
           </div>
         </div>
