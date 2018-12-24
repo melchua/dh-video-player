@@ -19,7 +19,7 @@ const DropdownContainer = styled.div`
     position: absolute;
     bottom: 40px;
     height: 80px;
-    background-color: grey;
+    background-color: rgb(58,58,58,0.75);
     z-index: 1;
     /* min-width: 20px; */
     padding: 20px;
@@ -32,26 +32,26 @@ class SpeedControl extends Component {
     state = {
         level: 1
     };
-    handleSliderValueChange = (e, value) => {
-        this.setState({ level: value});
-        console.log('on change value: ', value);
-        // this.child.playerRef.current.seekTo(parseFloat(value));
+    handleSpeedValueChange = (e, value) => {
+        console.log(value);
+        return this.props.getPlaybackRateFromSpeedControl(value);
     }
     render() {
+        const { playbackRate } = this.props;
         return(
             <Dropdown>
                 <DropdownContainer>
                     <Slider
-                        value={this.state.level}
+                        value={playbackRate}
                         aria-labelledby="speed"
                         vertical
-                        onChange={this.handleSliderValueChange}
-                        min={-2}
+                        onChange={this.handleSpeedValueChange}
+                        min={0.5}
                         max={2}
                         height="100%"
                     />
                 </DropdownContainer>
-                <Button onClick="" style={{color: 'white', padding: '0'}}>{this.state.level.toFixed(2)}X</Button>
+                <Button onClick="" style={{color: 'white', padding: '0'}}>{playbackRate.toFixed(2)}X</Button>
             </Dropdown>
         );
     }

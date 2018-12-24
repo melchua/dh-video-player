@@ -102,11 +102,11 @@ class BasicVideo extends Component {
     }
     handleSliderValueChange = (e, value) => {
         this.setState({ played: value});
-        console.log('on change value: ', value);
+        // console.log('on change value: ', value);
         this.child.playerRef.current.seekTo(parseFloat(value));
     }
-    setPlaybackRate = e => {
-        this.setState({ playbackRate: parseFloat(e.currentTarget.value) })
+    getPlaybackRateFromSpeedControl = (playbackRate) => {
+        this.setState({playbackRate: parseFloat(playbackRate)});
     }
     onProgress = state => {
         // console.log('onProgress', state)
@@ -157,7 +157,7 @@ class BasicVideo extends Component {
             borderRadius: '1.3px',
             border: '0.2px solid #010101'
         }
-        const {isFront, mirror, playing, loop, muted, played, duration} = this.state;
+        const {isFront, mirror, playing, loop, muted, played, duration, playbackRate} = this.state;
         const {isFullscreen, toggleFullscreen} = this.props;
         return (
             <div style={bigassWrapper}>
@@ -169,6 +169,7 @@ class BasicVideo extends Component {
                         loop={loop} 
                         onProgress={this.onProgress}
                         onDuration={this.onDuration}
+                        playbackRate={playbackRate}
                         />
                 </div>
                 <div style={controlBarContainerStyle}>
@@ -187,7 +188,7 @@ class BasicVideo extends Component {
                             <Button style={buttonStyle} onClick={this.playPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'purple' }}/> : <Loop />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff /> : <VolumeUp />}</Button>
-                            <SpeedControl />
+                            <SpeedControl playbackRate={playbackRate} getPlaybackRateFromSpeedControl={this.getPlaybackRateFromSpeedControl}/>
                             <span style={buttonStyle}><Duration seconds={duration * played} /> / <Duration seconds={duration}/></span>
                         </span>
 
