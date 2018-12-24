@@ -3,7 +3,6 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './theme';
 import FullBasicVideo from './playground/BackToBasics';
 
-
 class App extends Component {
 
   render() {
@@ -14,8 +13,6 @@ class App extends Component {
           <div style={{position:'relative',background:'white',padding:'0'}}>
             <FullBasicVideo />
           </div>
-          <p>The beginning</p>
-
         </div>
       </MuiThemeProvider>
     );

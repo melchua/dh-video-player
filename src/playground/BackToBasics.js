@@ -14,6 +14,8 @@ import VolumeUp from '@material-ui/icons/VolumeUp';
 import VolumeOff from '@material-ui/icons/VolumeOff'; 
 import Slider from '@material-ui/lab/Slider';
 import Duration from '../Components/Duration'; 
+import SpeedControl from './SpeedControl';
+
 
 const withSizeWrapper = withSize({ monitorHeight: true });
 
@@ -32,7 +34,7 @@ class Player extends Component {
         }
     }
     render() {
-        const { playing, loop, onProgress, muted, onDuration } = this.props;
+        const { playing, loop, onProgress, muted, onDuration, playbackRate } = this.props;
         return (
             <div>
                 <ReactPlayer
@@ -48,7 +50,8 @@ class Player extends Component {
                     playsinline
                     config={{ file: { attributes: {
                         crossOrigin: 'anonymous'
-                      }}}}
+                    }}}}
+                    playbackRate={playbackRate}
                 />
             </div>
         )    
@@ -67,7 +70,8 @@ class BasicVideo extends Component {
         loop: true,
         played: 0,
         seeking: false,
-        duration: 0
+        duration: 0,
+        playbackRate: 1
     }
     
     getPlayerSize = (sizeFromPlayer) => {
@@ -83,7 +87,6 @@ class BasicVideo extends Component {
     switchAngle = () => {
         this.setState(({isFront}) => ({ isFront: !isFront }));
         this.setState(({mirror}) => ({mirror: !mirror}));
-
     }
     onMirror = () => {
         this.setState(({mirror}) => ({mirror: !mirror}));
@@ -101,6 +104,9 @@ class BasicVideo extends Component {
         this.setState({ played: value});
         console.log('on change value: ', value);
         this.child.playerRef.current.seekTo(parseFloat(value));
+    }
+    setPlaybackRate = e => {
+        this.setState({ playbackRate: parseFloat(e.currentTarget.value) })
     }
     onProgress = state => {
         // console.log('onProgress', state)
@@ -132,18 +138,19 @@ class BasicVideo extends Component {
         }
         const buttonStyle = {
             color: 'white',
-            // zIndex: 10,
-            // height: '10px'
         }
         const controlBarContainerStyle = {
             backgroundColor: 'rgba(0,0,0,0.4)',
             position: 'absolute',
             bottom: '0px',
             width: '100%',
+            whiteSpace: 'nowrap'
         }
         const controlBarStyle = { 
             display: 'flex',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+            flexWrap: 'nowrap'
         }
         const rangeStyle = {
             width: '100%',
@@ -180,7 +187,7 @@ class BasicVideo extends Component {
                             <Button style={buttonStyle} onClick={this.playPause}>{playing ? <Pause /> : <PlayArrow />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'purple' }}/> : <Loop />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff /> : <VolumeUp />}</Button>
-                            <Button style={buttonStyle} onClick="">1x</Button> 
+                            <SpeedControl />
                             <span style={buttonStyle}><Duration seconds={duration * played} /> / <Duration seconds={duration}/></span>
                         </span>
 
