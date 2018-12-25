@@ -15,6 +15,8 @@ import VolumeOff from '@material-ui/icons/VolumeOff';
 import Slider from '@material-ui/lab/Slider';
 import Duration from '../Components/Duration'; 
 import SpeedControl from './SpeedControl';
+import {isMobile} from 'react-device-detect';
+import '../index.css';
 
 
 const withSizeWrapper = withSize({ monitorHeight: true });
@@ -52,6 +54,7 @@ class Player extends Component {
                         crossOrigin: 'anonymous'
                     }}}}
                     playbackRate={playbackRate}
+                    controls={false}
                 />
             </div>
         )    
@@ -71,7 +74,9 @@ class BasicVideo extends Component {
         played: 0,
         seeking: false,
         duration: 0,
-        playbackRate: 1
+        playbackRate: 1,
+        muted: false,
+        forceHLS: true
     }
     
     getPlayerSize = (sizeFromPlayer) => {
@@ -157,6 +162,7 @@ class BasicVideo extends Component {
             borderRadius: '1.3px',
             border: '0.2px solid #010101'
         }
+        
         const {isFront, mirror, playing, loop, muted, played, duration, playbackRate} = this.state;
         const {isFullscreen, toggleFullscreen} = this.props;
         return (
@@ -165,7 +171,8 @@ class BasicVideo extends Component {
                     <PlayerSizeAware 
                         onRef={ref => (this.child = ref)} 
                         triggerGetPlayerSize={this.getPlayerSize} 
-                        muted={muted} playing={playing} 
+                        muted={muted} 
+                        playing={playing} 
                         loop={loop} 
                         onProgress={this.onProgress}
                         onDuration={this.onDuration}
@@ -189,14 +196,16 @@ class BasicVideo extends Component {
                             <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'purple' }}/> : <Loop />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff /> : <VolumeUp />}</Button>
                             <SpeedControl playbackRate={playbackRate} getPlaybackRateFromSpeedControl={this.getPlaybackRateFromSpeedControl}/>
-                            <span style={buttonStyle}><Duration seconds={duration * played} /> / <Duration seconds={duration}/></span>
+                            {!isMobile && <span style={buttonStyle}><Duration seconds={duration * played} /> / <Duration seconds={duration}/></span>
+                            }
                         </span>
 
                         <span>
                             <FormControlLabel style={buttonStyle} control={<Switch onChange={this.switchAngle} checked={isFront} />} 
                                 label={isFront ? <span style={{color: 'white'}}>Front</span> : <span style={{color: 'white'}}>Back</span>} />
                             <FormControlLabel style={buttonStyle} control={<Switch onChange={this.onMirror} checked={mirror}/>} label={<span style={{color: 'white'}}>Mirror</span>} />
-                            <Button style={buttonStyle} onClick={toggleFullscreen}>{isFullscreen ? <FullscreenExit style={{color: 'white'}} /> : <Fullscreen style={{color: 'white'}} />}</Button>
+                            { !isMobile && (<Button style={buttonStyle} onClick={toggleFullscreen}>{isFullscreen ? <FullscreenExit style={{color: 'white'}} /> : <Fullscreen style={{color: 'white'}} />}</Button>)
+                            }
                         </span>
                     </div>
                 </div>

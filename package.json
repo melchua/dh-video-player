@@ -13,6 +13,7 @@
     "i": "^0.3.6",
     "npm": "^6.4.1",
     "react": "^16.5.2",
+    "react-device-detect": "^1.6.1",
     "react-dom": "^16.5.2",
     "react-fullscreenable": "^2.5.1-0",
     "react-player": "^1.6.6",
