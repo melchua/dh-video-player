@@ -159,8 +159,9 @@ class BasicVideo extends Component {
         }
         const rangeStyle = {
             width: '100%',
-            borderRadius: '1.3px',
-            border: '0.2px solid #010101'
+            // borderRadius: '1.3px',
+            // border: '0.2px solid #010101',
+            // padding: '10px'
         }
         
         const {isFront, mirror, playing, loop, muted, played, duration, playbackRate} = this.state;
@@ -182,6 +183,7 @@ class BasicVideo extends Component {
                 <div style={controlBarContainerStyle}>
                     <div style={rangeStyle}>
                         <Slider
+                            style={{padding: '10px'}}
                             value={played}
                             aria-labelledby="label"
                             onChange={this.handleSliderValueChange}
