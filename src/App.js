@@ -10,6 +10,7 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <div style={{display: 'relative'}}>
             <DHVideoPlayer />
+
         </div>
       </MuiThemeProvider>
     );
