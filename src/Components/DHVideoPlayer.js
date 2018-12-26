@@ -15,6 +15,8 @@ import VolumeOff from '@material-ui/icons/VolumeOff';
 import Slider from '@material-ui/lab/Slider';
 import Duration from './Duration'; 
 import SpeedControl from './SpeedControl';
+import {isMobile} from 'react-device-detect';
+import '../index.css';
 
 
 const withSizeWrapper = withSize({ monitorHeight: true });
@@ -52,6 +54,7 @@ class Player extends Component {
                         crossOrigin: 'anonymous'
                     }}}}
                     playbackRate={playbackRate}
+                    controls={false}
                 />
             </div>
         )    
@@ -71,7 +74,9 @@ class BasicVideo extends Component {
         played: 0,
         seeking: false,
         duration: 0,
-        playbackRate: 1
+        playbackRate: 1,
+        muted: false,
+        forceHLS: true
     }
     
     getPlayerSize = (sizeFromPlayer) => {
@@ -109,22 +114,15 @@ class BasicVideo extends Component {
         this.setState({playbackRate: parseFloat(playbackRate)});
     }
     onProgress = state => {
-        // console.log('onProgress', state)
         // We only want to update time slider if we are not currently seeking
         if (!this.state.seeking) {
             this.setState(state)
         }
     }
-    componentDidUpdate() {
-        // console.log(this.state.vidWidth);
-        // console.log(this.state.vidHeight);
-        // console.log(this.state.played);
-        // console.log('state duration', this.state.duration);
-    }
     render() {
         const bigassWrapper = {
             position: 'relative',
-            height: this.state.vidHeight,  //**** I think this will work! just need to feed the width/height into this! */
+            height: this.state.vidHeight,  
             width: '100%',
             overflow: 'hidden'
         }
@@ -133,7 +131,7 @@ class BasicVideo extends Component {
             top: this.state.isFront ?  -this.state.vidHeight : 0,
             transform: this.state.mirror ? 'rotateY(180deg)' : 'rotateY(0deg)',
             width: '100%',
-            height: '100%', // height needs to be a number that comes from state and child component
+            height: '100%', 
             backgroundColor: 'black',
         }
         const buttonStyle = {
@@ -153,10 +151,9 @@ class BasicVideo extends Component {
             flexWrap: 'nowrap'
         }
         const rangeStyle = {
-            width: '100%',
-            borderRadius: '1.3px',
-            border: '0.2px solid #010101'
+            width: '100%'
         }
+        
         const {isFront, mirror, playing, loop, muted, played, duration, playbackRate} = this.state;
         const {isFullscreen, toggleFullscreen} = this.props;
         return (
@@ -165,7 +162,8 @@ class BasicVideo extends Component {
                     <PlayerSizeAware 
                         onRef={ref => (this.child = ref)} 
                         triggerGetPlayerSize={this.getPlayerSize} 
-                        muted={muted} playing={playing} 
+                        muted={muted} 
+                        playing={playing} 
                         loop={loop} 
                         onProgress={this.onProgress}
                         onDuration={this.onDuration}
@@ -175,6 +173,7 @@ class BasicVideo extends Component {
                 <div style={controlBarContainerStyle}>
                     <div style={rangeStyle}>
                         <Slider
+                            style={{padding: '10px'}}
                             value={played}
                             aria-labelledby="label"
                             onChange={this.handleSliderValueChange}
@@ -189,14 +188,16 @@ class BasicVideo extends Component {
                             <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'purple' }}/> : <Loop />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff /> : <VolumeUp />}</Button>
                             <SpeedControl playbackRate={playbackRate} getPlaybackRateFromSpeedControl={this.getPlaybackRateFromSpeedControl}/>
-                            <span style={buttonStyle}><Duration seconds={duration * played} /> / <Duration seconds={duration}/></span>
+                            {!isMobile && <span style={buttonStyle}><Duration seconds={duration * played} /> / <Duration seconds={duration}/></span>
+                            }
                         </span>
 
                         <span>
                             <FormControlLabel style={buttonStyle} control={<Switch onChange={this.switchAngle} checked={isFront} />} 
                                 label={isFront ? <span style={{color: 'white'}}>Front</span> : <span style={{color: 'white'}}>Back</span>} />
                             <FormControlLabel style={buttonStyle} control={<Switch onChange={this.onMirror} checked={mirror}/>} label={<span style={{color: 'white'}}>Mirror</span>} />
-                            <Button style={buttonStyle} onClick={toggleFullscreen}>{isFullscreen ? <FullscreenExit style={{color: 'white'}} /> : <Fullscreen style={{color: 'white'}} />}</Button>
+                            { !isMobile && (<Button style={buttonStyle} onClick={toggleFullscreen}>{isFullscreen ? <FullscreenExit style={{color: 'white'}} /> : <Fullscreen style={{color: 'white'}} />}</Button>)
+                            }
                         </span>
                     </div>
                 </div>
