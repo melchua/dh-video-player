@@ -13,7 +13,7 @@ import FullscreenExit from '@material-ui/icons/FullscreenExit';
 import VolumeUp from '@material-ui/icons/VolumeUp'; 
 import VolumeOff from '@material-ui/icons/VolumeOff'; 
 import Slider from '@material-ui/lab/Slider';
-import Duration from '../Components/Duration'; 
+import Duration from './Duration'; 
 import SpeedControl from './SpeedControl';
 
 
@@ -205,5 +205,5 @@ class BasicVideo extends Component {
     }
 }
 
-const FullBasicVideo = Fullscreenable()(BasicVideo);
-export default FullBasicVideo;
+const DHVideoPlayer = Fullscreenable()(BasicVideo);
+export default DHVideoPlayer;

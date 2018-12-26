@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './theme';
-import FullBasicVideo from './playground/BackToBasics';
+import DHVideoPlayer from './Components/DHVideoPlayer';
 
 class App extends Component {
 
@@ -9,9 +9,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <div style={{display: 'relative'}}>
-          <div>
-            <FullBasicVideo />
-          </div>
+            <DHVideoPlayer />
         </div>
       </MuiThemeProvider>
     );
