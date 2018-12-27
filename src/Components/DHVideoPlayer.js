@@ -13,7 +13,6 @@ import FullscreenExit from '@material-ui/icons/FullscreenExit';
 import VolumeUp from '@material-ui/icons/VolumeUp'; 
 import VolumeOff from '@material-ui/icons/VolumeOff'; 
 import Slider from '@material-ui/lab/Slider';
-import styled from 'styled-components';
 import {isMobile} from 'react-device-detect';
 import Duration from './Duration'; 
 import SpeedControl from './SpeedControl';
