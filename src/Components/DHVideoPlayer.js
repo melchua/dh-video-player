@@ -13,9 +13,10 @@ import FullscreenExit from '@material-ui/icons/FullscreenExit';
 import VolumeUp from '@material-ui/icons/VolumeUp'; 
 import VolumeOff from '@material-ui/icons/VolumeOff'; 
 import Slider from '@material-ui/lab/Slider';
+import styled from 'styled-components';
+import {isMobile} from 'react-device-detect';
 import Duration from './Duration'; 
 import SpeedControl from './SpeedControl';
-import {isMobile} from 'react-device-detect';
 import '../index.css';
 
 
@@ -36,12 +37,12 @@ class Player extends Component {
         }
     }
     render() {
-        const { playing, loop, onProgress, muted, onDuration, playbackRate } = this.props;
+        const { playing, loop, onProgress, muted, onDuration, playbackRate, videoUrl, posterUrl } = this.props;
         return (
             <div>
                 <ReactPlayer
                     ref={this.playerRef}
-                    url="https://s3-us-west-2.amazonaws.com/course-videos-transcoded/wt/wt.m3u8"
+                    url={videoUrl}
                     width="100%"
                     height="100%"
                     playing={playing}
@@ -50,8 +51,10 @@ class Player extends Component {
                     muted={muted}
                     onDuration={onDuration}
                     playsinline
-                    config={{ file: { attributes: {
-                        crossOrigin: 'anonymous'
+                    config={{ 
+                        file: { attributes: {
+                            crossOrigin: 'anonymous',
+                            poster: posterUrl
                     }}}}
                     playbackRate={playbackRate}
                     controls={false}
@@ -76,7 +79,7 @@ class BasicVideo extends Component {
         duration: 0,
         playbackRate: 1,
         muted: false,
-        forceHLS: true
+        forceHLS: true,
     }
     
     getPlayerSize = (sizeFromPlayer) => {
@@ -148,14 +151,20 @@ class BasicVideo extends Component {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'baseline',
-            flexWrap: 'nowrap'
+            flexWrap: 'nowrap',
+            width: '100%'
         }
         const rangeStyle = {
-            width: '100%'
+            width: '98%', // this is strange, slightly hacky for now, revisit later
+            display: 'flex',
+            justifyContent: 'space-around',
+            color: 'white',
+            marginLeft: '10px',
+            marginRight: '10px',
         }
         
         const {isFront, mirror, playing, loop, muted, played, duration, playbackRate} = this.state;
-        const {isFullscreen, toggleFullscreen} = this.props;
+        const {isFullscreen, toggleFullscreen, videoUrl, posterUrl = ''} = this.props;
         return (
             <div style={bigassWrapper}>
                 <div style={mover} className="mover">
@@ -168,10 +177,13 @@ class BasicVideo extends Component {
                         onProgress={this.onProgress}
                         onDuration={this.onDuration}
                         playbackRate={playbackRate}
-                        />
+                        videoUrl={videoUrl}
+                        posterUrl={posterUrl}
+                    />
                 </div>
                 <div style={controlBarContainerStyle}>
                     <div style={rangeStyle}>
+                        <Duration seconds={duration * played}/>
                         <Slider
                             style={{padding: '10px'}}
                             value={played}
@@ -180,6 +192,7 @@ class BasicVideo extends Component {
                             min={0}
                             max={1}
                         />
+                        <Duration seconds={duration}/>
 
                     </div>
                     <div style={controlBarStyle}>
@@ -188,8 +201,6 @@ class BasicVideo extends Component {
                             <Button style={buttonStyle} onClick={this.toggleLoop}>{loop ? <Loop style={{color: 'purple' }}/> : <Loop />}</Button>
                             <Button style={buttonStyle} onClick={this.toggleMuted}>{muted ? <VolumeOff /> : <VolumeUp />}</Button>
                             <SpeedControl playbackRate={playbackRate} getPlaybackRateFromSpeedControl={this.getPlaybackRateFromSpeedControl}/>
-                            {!isMobile && <span style={buttonStyle}><Duration seconds={duration * played} /> / <Duration seconds={duration}/></span>
-                            }
                         </span>
 
                         <span>

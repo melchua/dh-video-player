@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Slider from '@material-ui/lab/Slider';
 
 const Dropdown = styled.div`
